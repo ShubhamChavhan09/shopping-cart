@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <Side>
-      <LinkItem to="/category01">Category 1</LinkItem>
-      <LinkItem to="/category02">Category 2</LinkItem>
-      <LinkItem to="/category03">Category 3</LinkItem>
-    </Side>
+    <>
+      <Side>
+        <LinkItem to="/category01">Category 1</LinkItem>
+        <LinkItem to="/category02">Category 2</LinkItem>
+        <LinkItem to="/category03">Category 3</LinkItem>
+      </Side>
+    </>
   );
 };
 
@@ -16,7 +18,7 @@ export default SideBar;
 
 const Side = styled.div`
   background: salmon;
-  width: 20%;
+  width: 250px;
   min-height: 92vh;
   display: flex;
   flex-direction: column;
