@@ -3,9 +3,24 @@ import faker from "faker";
 import { cartReducer } from "./Reducers";
 
 const Cart = createContext();
+faker.seed(123);
 
 const Context = ({ children }) => {
-  const products = [...Array(20)].map(() => ({
+  const products1 = [...Array(10)].map(() => ({
+    id: faker.datatype.uuid(),
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    image: faker.random.image(),
+  }));
+
+  const products2 = [...Array(10)].map(() => ({
+    id: faker.datatype.uuid(),
+    name: faker.commerce.productName(),
+    price: faker.commerce.price(),
+    image: faker.random.image(),
+  }));
+
+  const products3 = [...Array(10)].map(() => ({
     id: faker.datatype.uuid(),
     name: faker.commerce.productName(),
     price: faker.commerce.price(),
@@ -13,7 +28,9 @@ const Context = ({ children }) => {
   }));
 
   const [state, dispatch] = useReducer(cartReducer, {
-    products: products,
+    products1: products1,
+    products2: products2,
+    products3: products3,
     cart: [],
   });
 
