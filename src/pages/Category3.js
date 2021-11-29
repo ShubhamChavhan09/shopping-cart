@@ -1,9 +1,19 @@
 import React from "react";
+import { CartState } from "../context/Context";
+import SingleProduct from "../components/SingleProduct";
 
 const Category3 = () => {
+  const {
+    state: { products3 },
+  } = CartState();
+
+  console.log(products3);
+
   return (
     <div>
-      <h1>Category13</h1>
+      {products3.map((item) => (
+        <SingleProduct item={item} key={item.id} />
+      ))}
     </div>
   );
 };
