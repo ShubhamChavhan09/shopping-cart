@@ -2,14 +2,15 @@ import React from "react";
 import Header from "./components/Header.js";
 import SideBar from "./components/SideBar/index.js";
 import GlobalStyle from "./theme/globalStyle.js";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <GlobalStyle />
       <Header />
       <SideBar />
-    </div>
+    </BrowserRouter>
   );
 }
 
