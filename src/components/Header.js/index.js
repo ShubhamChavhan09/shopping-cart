@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const Header = () => {
+  const [showPop, setShowPop] = useState(false);
+
   return (
     <Nav>
       <Logo>
