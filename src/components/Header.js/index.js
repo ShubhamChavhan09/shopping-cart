@@ -4,13 +4,17 @@ import styled from "styled-components";
 const Header = () => {
   const [showPop, setShowPop] = useState(false);
 
+  const toggle = () => {
+    setShowPop((prev) => !prev);
+  };
+
   return (
     <Nav>
       <Logo>
         <p>BlablaCart</p>
       </Logo>
       <Container>
-        <Button>
+        <Button onClick={toggle}>
           Cart<span>0</span>
         </Button>
         <p>Username</p>
