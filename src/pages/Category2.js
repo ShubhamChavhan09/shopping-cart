@@ -1,17 +1,13 @@
 import React from "react";
-import { CartState } from "../context/Context";
 import SingleProduct from "../components/SingleProduct";
+import { useStore } from "../context";
 
 const Category2 = () => {
-  const {
-    state: { products2 },
-  } = CartState();
-
-  console.log(products2);
+  const { product2 } = useStore();
 
   return (
     <div>
-      {products2.map((item) => (
+      {product2.map((item) => (
         <SingleProduct item={item} key={item.id} />
       ))}
     </div>
