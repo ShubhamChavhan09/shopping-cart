@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import PopUp from "../PopUp";
 
 const Header = () => {
   const [showPop, setShowPop] = useState(false);
@@ -17,6 +18,7 @@ const Header = () => {
         <Button onClick={toggle}>
           Cart<span>0</span>
         </Button>
+        <PopUp showPop={showPop} setShowPop={setShowPop} />
         <p>Username</p>
       </Container>
     </Nav>
