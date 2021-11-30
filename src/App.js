@@ -5,16 +5,20 @@ import GlobalStyle from "./theme/globalStyle.js";
 import { BrowserRouter } from "react-router-dom";
 import Routes from "./routes/index.js";
 import styled from "styled-components";
+import { StoreProvider } from "./context/index.js";
+import { reducer, initialState } from "./reducers";
 
 function App() {
   return (
     <BrowserRouter>
-      <GlobalStyle />
-      <Header />
-      <Main>
-        <SideBar />
-        <Routes />
-      </Main>
+      <StoreProvider reducer={reducer} initialState={initialState}>
+        <GlobalStyle />
+        <Header />
+        <Main>
+          <SideBar />
+          <Routes />
+        </Main>
+      </StoreProvider>
     </BrowserRouter>
   );
 }
