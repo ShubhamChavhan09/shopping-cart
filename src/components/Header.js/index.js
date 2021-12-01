@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PopUp from "../PopUp";
 import { useStore } from "../../context";
+import { Link } from "react-router-dom";
 
 const Header = () => {
-  const state = useStore();
+  const { cart } = useStore();
 
   const [showPop, setShowPop] = useState(false);
 
@@ -14,12 +15,10 @@ const Header = () => {
 
   return (
     <Nav>
-      <Logo>
-        <p>BlablaCart</p>
-      </Logo>
+      <Logo to="/">BlablaCart</Logo>
       <Container>
         <Button onClick={toggle}>
-          Cart<span>{state.cart.length}</span>
+          Cart<span>{cart.length}</span>
         </Button>
         <PopUp showPop={showPop} setShowPop={setShowPop} />
         <p>Username</p>
@@ -34,11 +33,17 @@ const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid;
   padding: 1rem;
+  margin-bottom: 0.8rem;
+  background: #393a3d;
+  color: #f5f6fa;
 `;
 
-const Logo = styled.div``;
+const Logo = styled(Link)`
+  text-decoration: none;
+  color: #f5f6fa;
+  font-size: 1.8rem;
+`;
 
 const Container = styled.div`
   display: flex;
@@ -49,15 +54,20 @@ const Container = styled.div`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  background: #7fd1ae;
   position: relative;
   margin-right: 1rem;
-  padding: 5px 10px;
+  padding: 0 15px;
   font-size: 1rem;
   span {
     position: absolute;
     top: -15px;
     left: -10px;
-    background: red;
+    background: salmon;
     border-radius: 50%;
     padding: 8px;
   }
