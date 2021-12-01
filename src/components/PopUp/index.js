@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, u } from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useStore } from "../../context";
@@ -7,10 +7,29 @@ import { AiFillDelete } from "react-icons/ai";
 const PopUp = ({ showPop, setShowPop }) => {
   const { cart } = useStore();
   const dispatch = useDispatch();
+
+  const popRef = useRef();
+
+  const handleChange = (e) => {
+    dispatch({
+      type: "CHANGE_CART_QTY",
+      payload: {
+        id: cart[0].id,
+        qty: e.target.value,
+      },
+    });
+  };
+
+  const close = (e) => {
+    if (popRef.current === e.target) {
+      setShowPop(false);
+    }
+  };
+
   return (
     <div>
       {showPop ? (
-        <Background>
+        <Background ref={popRef} onClick={close}>
           <Wrapper showPop={showPop}>
             <Content>
               {cart.length > 0 ? (
@@ -22,8 +41,17 @@ const PopUp = ({ showPop, setShowPop }) => {
                         <div>{item.name}</div>
                         <div>₹{item.price.split(".")[0]}</div>
                       </div>
-
-                      <AiFillDelete
+                      <div>
+                        <select value={item.qty} onChange={handleChange}>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                        </select>
+                      </div>
+                      <Delete
                         onClick={() => {
                           dispatch({
                             type: "REMOVE_FROM_CART",
@@ -60,7 +88,7 @@ const Background = styled.div`
 const Wrapper = styled.div`
   width: 800px;
   height: 500px;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5);
   background: #fff;
   color: black;
   z-index: 10;
@@ -89,7 +117,7 @@ const Close = styled(MdClose)`
 const CartItem = styled.div`
   display: flex;
   width: 100%;
-  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.5);
   margin-bottom: 1rem;
   justify-content: space-between;
   align-items: center;
@@ -98,4 +126,9 @@ const CartItem = styled.div`
   img {
     width: 120px;
   }
+`;
+const Delete = styled(AiFillDelete)`
+  color: #ff3f34;
+  font-size: 1.5rem;
+  margin-right: 1rem;
 `;
