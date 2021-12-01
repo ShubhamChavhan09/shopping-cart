@@ -1,17 +1,48 @@
 import React from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
+import { useDispatch, useStore } from "../../context";
+import { AiFillDelete } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const PopUp = ({ showPop, setShowPop }) => {
+  const state = useStore();
+  const dispatch = useDispatch();
   return (
     <div>
       {showPop ? (
         <Background>
           <Wrapper showPop={showPop}>
             <Content>
-              <p>hello</p>
+              {state.cart.length > 0 ? (
+                <>
+                  {state.cart.map((item) => (
+                    <span key={item.id}>
+                      <img src={item.image} alt={item.name} />
+                      <div>
+                        <span>{item.name}</span>
+                        <span>₹{item.price.split(".")[0]}</span>
+                      </div>
+
+                      <AiFillDelete
+                        onClick={() => {
+                          dispatch({
+                            type: "REMOVE_FROM_CART",
+                            payload: item,
+                          });
+                        }}
+                      />
+                    </span>
+                  ))}
+                </>
+              ) : (
+                <p>The cart is empty</p>
+              )}
             </Content>
             <Close onClick={() => setShowPop((prev) => !prev)} />
+            <Link to="/cart">
+              <button>Go to Cart</button>
+            </Link>
           </Wrapper>
         </Background>
       ) : null}
