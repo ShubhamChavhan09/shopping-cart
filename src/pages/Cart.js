@@ -1,25 +1,57 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useStore } from "../context";
+import { AiFillDelete } from "react-icons/ai";
 import styled from "styled-components";
 
 const Cart = () => {
   const state = useStore();
-
-  console.log(state);
 
   const dispatch = useDispatch();
 
   const [total, setTotal] = useState("");
 
   useEffect(() => {
-    setTotal(state.cart.reduce((acc, curr) => acc + Number(curr.price), 0));
+    setTotal(
+      state.cart.reduce((acc, curr) => acc + Number(curr.price) * curr.qty, 0)
+    );
   }, [state.cart]);
 
   return (
     <Container>
       <List>
         {state.cart.map((item) => (
-          <span key={item.id}>{item.name}</span>
+          <span key={item.id}>
+            {item.name}
+
+            <form>
+              <select
+                onChange={(e) => {
+                  dispatch({
+                    type: " CHANGE_CART_QTY",
+                    payload: {
+                      id: item.id,
+                      qty: e.target.value,
+                    },
+                  });
+                }}
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+            </form>
+            <AiFillDelete
+              onClick={() => {
+                dispatch({
+                  type: "REMOVE_FROM_CART",
+                  payload: item,
+                });
+              }}
+            />
+          </span>
         ))}
       </List>
       <Summary>
@@ -44,7 +76,6 @@ const Summary = styled.div`
 
 const List = styled.div`
   flex: 1;
-  background: lightgray;
   display: flex;
   justify-content: flex-start;
   align-items: center;
