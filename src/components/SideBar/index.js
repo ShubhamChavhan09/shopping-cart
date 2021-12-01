@@ -40,15 +40,3 @@ const LinkItem = styled(Link)`
   padding: 1rem;
   margin: 2rem 0;
 `;
-
-const Div = styled.div`
-  li {
-    margin-bottom: 2.5rem;
-  }
-  p {
-    margin-bottom: 1.5rem;
-    // background: salmon;
-    // border-radius: 8px;
-    // padding: 1rem;
-  }
-`;

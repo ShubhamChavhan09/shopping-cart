@@ -1,4 +1,4 @@
-import React, { useRef, u } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useStore } from "../../context";
