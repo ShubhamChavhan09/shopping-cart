@@ -3,17 +3,17 @@ import { useStore, useDispatch } from "../context";
 import styled from "styled-components";
 
 const SingleProduct = ({ item }) => {
-  const state = useStore();
+  const { cart } = useStore();
   const dispatch = useDispatch();
 
   return (
     <Container>
       <img src={item.image} alt={item.name} />
       <p>{item.name}</p>
-      <p>₹{item.price}</p>
+      <p>₹{item.price.split(".")[0]}</p>
       {/* if specific item is not in the cart the it will show Add to cart button or else remove from cart */}
 
-      {state.cart.some((p) => p.id === item.id) ? (
+      {cart.some((p) => p.id === item.id) ? (
         <button
           onClick={() => {
             dispatch({ type: "REMOVE_FROM_CART", payload: item });
@@ -37,8 +37,8 @@ const SingleProduct = ({ item }) => {
 export default SingleProduct;
 
 const Container = styled.div`
-  border: 1px solid #2f3640;
-  box-shadow: 0 0 10px #2f3640;
+  border: 1px solid #d3d9f0;
+  box-shadow: 0 0 10px #d3d9f0;
   margin: 0 auto;
   text-align: center;
   border-radius: 10px;
@@ -53,5 +53,9 @@ const Container = styled.div`
     width: 90%;
     padding: 5px 0;
     margin-bottom: 1rem;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background: #7fd1ae;
   }
 `;
