@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { MdClose } from "react-icons/md";
 import { useDispatch, useStore } from "../../context";
 import { AiFillDelete } from "react-icons/ai";
-import { Link } from "react-router-dom";
 
 const PopUp = ({ showPop, setShowPop }) => {
-  const state = useStore();
+  const { cart } = useStore();
   const dispatch = useDispatch();
   return (
     <div>
@@ -14,14 +13,14 @@ const PopUp = ({ showPop, setShowPop }) => {
         <Background>
           <Wrapper showPop={showPop}>
             <Content>
-              {state.cart.length > 0 ? (
+              {cart.length > 0 ? (
                 <>
-                  {state.cart.map((item) => (
-                    <span key={item.id}>
+                  {cart.map((item) => (
+                    <CartItem key={item.id}>
                       <img src={item.image} alt={item.name} />
                       <div>
-                        <span>{item.name}</span>
-                        <span>₹{item.price.split(".")[0]}</span>
+                        <div>{item.name}</div>
+                        <div>₹{item.price.split(".")[0]}</div>
                       </div>
 
                       <AiFillDelete
@@ -32,7 +31,7 @@ const PopUp = ({ showPop, setShowPop }) => {
                           });
                         }}
                       />
-                    </span>
+                    </CartItem>
                   ))}
                 </>
               ) : (
@@ -40,9 +39,6 @@ const PopUp = ({ showPop, setShowPop }) => {
               )}
             </Content>
             <Close onClick={() => setShowPop((prev) => !prev)} />
-            <Link to="/cart">
-              <button>Go to Cart</button>
-            </Link>
           </Wrapper>
         </Background>
       ) : null}
@@ -70,12 +66,13 @@ const Wrapper = styled.div`
   z-index: 10;
   border-radius: 10px;
   position: relative;
-  padding: 20px;
+  padding: 3rem 2rem;
   overflow: auto;
 `;
 
 const Content = styled.div`
   display: flex;
+  width: 100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -86,4 +83,19 @@ const Close = styled(MdClose)`
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 1.5rem;
+`;
+
+const CartItem = styled.div`
+  display: flex;
+  width: 100%;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.2);
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+  overflow: hidden;
+  img {
+    width: 120px;
+  }
 `;
